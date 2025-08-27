@@ -1,17 +1,347 @@
 <!doctype html>
-<html>
-<head><title>GetVideo - Enter Link</title></head>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GetVideo — Static Mock</title>
+
+  <!-- Righteous font (matches your XML fontFamily) -->
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#000;
+      --card:#282828;
+      --muted-white:rgba(255,255,255,0.85);
+      --hint:rgba(255,255,255,0.7);
+      --green:#178F7F;
+      --card-radius:7px;
+      --gap:12px;
+      --width:390px; /* mobile mock width; adapt if you want */
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      color:var(--muted-white);
+    }
+
+    /* center the phone canvas */
+    .phone {
+      width:var(--width);
+      max-width:100%;
+      margin:16px auto;
+      min-height:100vh;
+      box-sizing:border-box;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* App bar */
+    .appbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height:56px;
+      padding:0 14px;
+      box-sizing:border-box;
+      background:transparent;
+    }
+    .left-icons{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .hamburger{
+      width:28px;height:28px;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .title{
+      font-family: 'Righteous', cursive;
+      font-size:25px;
+      color:#fff;
+    }
+    .tiktok{
+      width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+    }
+
+    /* Card common */
+    .card{
+      background:var(--card);
+      border-radius:var(--card-radius);
+      padding:14px;
+      box-sizing:border-box;
+      margin:8px 15px 0 15px;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+    }
+
+    /* download input box inside card */
+    .link-row{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background:#141414;
+      border-radius:6px;
+      padding:8px;
+    }
+    .link-row svg {opacity:0.95}
+    .link-input{
+      flex:1;
+      border:0;
+      outline:0;
+      background:transparent;
+      color:#fff;
+      font-size:15px;
+      padding:6px 0;
+    }
+    .small-icon{
+      width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;
+    }
+
+    .download-btn{
+      margin-top:10px;
+      background:var(--green);
+      color:white;
+      border-radius:6px;
+      padding:10px 12px;
+      text-align:center;
+      font-weight:600;
+      letter-spacing:0.6px;
+      cursor:pointer;
+      border:0;
+    }
+
+    /* remaining downloads */
+    .remaining-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .remaining-left{ display:flex; align-items:center; gap:10px; color:var(--muted-white); font-weight:600; }
+    .round-btn{ width:36px;height:36px;border-radius:6px; display:flex;align-items:center;justify-content:center; background:#141414; }
+
+    /* media item card */
+    .media-card{ display:flex; gap:12px; align-items:flex-start; padding:8px; position:relative;}
+    .thumb{
+      width:97px;height:97px;border-radius:5px;background:#000;overflow:hidden;position:relative;flex:0 0 97px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .videocam-icon{ position:absolute; right:8px; top:8px; width:16px;height:16px; opacity:0.95; }
+
+    .media-body{ flex:1; display:flex; flex-direction:column; gap:6px; }
+    .media-top{ display:flex; align-items:center; justify-content:space-between; }
+    .name{ font-weight:700; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .caption{ color:var(--hint); font-size:13px; line-height:1.1; max-height:2.6em; overflow:hidden; }
+
+    /* circular progress overlay */
+    .progress-wrap{
+      width:97px;height:97px; position:relative; margin-left:-97px; pointer-events:none;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .circle-bg{
+      width:45px;height:45px;border-radius:50%; background:rgba(255,255,255,0.06); display:flex;align-items:center;justify-content:center; position:relative;
+    }
+    .progress-number{ position:absolute; font-weight:700; color:#fff; font-size:13px; }
+    /* SVG progress circle styling via CSS variables */
+    .progress-svg{ position:absolute; transform:rotate(-90deg); }
+
+    /* action icons row (share, pause/play, delete) */
+    .media-actions{ display:flex; gap:26px; align-items:center; justify-content:center; margin-top:6px;}
+    .action-btn{
+      width:34px;height:34px;border-radius:6px;background:transparent;border:0;display:flex;align-items:center;justify-content:center;cursor:pointer;
+    }
+    .action-btn svg{ opacity:0.95; }
+
+    /* bottom navigation */
+    .bottom-nav{
+      margin-top:auto;
+      height:66px;
+      display:flex;
+      align-items:center;
+      justify-content:space-around;
+      background:transparent;
+      padding:10px 20px;
+      box-sizing:border-box;
+    }
+    .nav-item{ display:flex; flex-direction:column; align-items:center; gap:6px; color:var(--muted-white); }
+    .nav-btn{
+      width:74px;height:44px;border-radius:22px;background:#141414; display:flex; align-items:center; justify-content:center; gap:8px;
+      color:var(--hint); font-weight:700; border:0;
+    }
+    .nav-btn.active{ background:var(--green); color:white; box-shadow: 0 2px 6px rgba(23,143,127,0.2); }
+
+    /* small responsive tweaks */
+    @media (max-width:420px){
+      .phone{ padding-bottom:10px; }
+    }
+  </style>
+</head>
 <body>
-  <h1>GetVideo</h1>
-  <p>Enter video link:</p>
-  <input type="text" placeholder="Paste video link here">
-  <button>Download</button>
-  <p>Remaining downloads: 1 <button>+</button></p>
-  <h2>Video Title: Coach_ramazay</h2>
-  <p>Video Caption: Footage of something that was caught last night in the backyard very scary</p>
-  <img src="/images/thumbnail.jpeg" alt="Video Thumbnail">
-  <button>Copy link</button>
-  <button>Resume Dwonload</button>
-  <button>Delete</button>
+  <div class="phone" role="main" aria-label="GetVideo mockup">
+
+    <!-- App bar -->
+    <header class="appbar" role="banner">
+      <div class="left-icons">
+        <div class="hamburger" title="menu">
+          <!-- hamburger svg -->
+          <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect y="0" width="22" height="2" rx="1" fill="#FFF"/>
+            <rect y="7" width="22" height="2" rx="1" fill="#FFF"/>
+            <rect y="14" width="22" height="2" rx="1" fill="#FFF"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="title">GetVideo</div>
+
+      <div class="tiktok" title="tiktok icon">
+        <!-- simple rounded tiktok-like icon placeholder -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 3v10a4 4 0 1 0 4-4V3a7 7 0 1 1-4 0z" fill="#fff"/>
+        </svg>
+      </div>
+    </header>
+
+    <!-- Input card -->
+    <section class="card" aria-label="download box">
+      <div style="display:flex;flex-direction:column;">
+        <div class="link-row" role="group" aria-label="link input">
+          <!-- link icon -->
+          <div style="width:18px;display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M10.59 13.41a1 1 0 010-1.41l3-3a4 4 0 015.66 5.66l-1.41 1.41" stroke="#FFF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13.41 10.59a1 1 0 010 1.41l-3 3a4 4 0 01-5.66-5.66L5.75 8.93" stroke="#FFF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <input class="link-input" placeholder="Enter a Link" aria-label="link input field" />
+
+          <button class="small-icon" title="paste">
+            <!-- copy icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <rect x="9" y="9" width="9" height="11" rx="2" stroke="#fff" stroke-width="1.2"/>
+              <rect x="5" y="5" width="11" height="11" rx="2" stroke="#fff" stroke-width="1.2" />
+            </svg>
+          </button>
+        </div>
+
+        <button class="download-btn" aria-label="download button">DOWNLOAD</button>
+      </div>
+    </section>
+
+    <!-- remaining downloads -->
+    <section class="card" aria-label="remaining downloads">
+      <div class="remaining-row">
+        <div class="remaining-left">
+          <!-- download icon -->
+          <div style="width:21px;height:21px;display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3v12" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M5 12l7 7 7-7" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div style="font-weight:700;">Remaining downloads: 1</div>
+        </div>
+
+        <button class="round-btn" title="add">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- media card -->
+    <section class="card" aria-label="media item">
+      <div class="media-card">
+        <div style="position:relative;">
+          <div class="thumb" aria-hidden="true">
+            <!-- thumbnail placeholder -->
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='97' height='97'><rect width='100%' height='100%' fill='%23000' /><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' fill='%23CCCCCC' font-size='12'>thumbnail</text></svg>" alt="cover">
+            <!-- videocam icon top-right of thumb -->
+            <div class="videocam-icon" style="position:absolute; right:8px; top:8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M23 7l-6 4v2l6 4V7z" fill="#FFF"/>
+                <rect x="1" y="5" width="14" height="14" rx="2" stroke="#fff" stroke-width="1"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- circular progress layer sits over thumb -->
+          <div class="progress-wrap" aria-hidden="true" style="pointer-events:none;">
+            <div class="circle-bg"></div>
+
+            <!-- SVG circular progress -->
+            <svg class="progress-svg" width="45" height="45" viewBox="0 0 45 45">
+              <!-- track -->
+              <circle cx="22.5" cy="22.5" r="18" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" fill="none"/>
+              <!-- indicator (progress = 45%) -->
+              <circle cx="22.5" cy="22.5" r="18" stroke="#178F7F" stroke-width="2.5" stroke-linecap="round" fill="none"
+                stroke-dasharray="113" stroke-dashoffset="62" />
+            </svg>
+
+            <div class="progress-number" style="font-weight:700;color:#fff;font-size:13px;">45</div>
+          </div>
+        </div>
+
+        <div class="media-body">
+          <div class="media-top">
+            <div class="name">Coach_ramzay</div>
+          </div>
+
+          <div class="caption">Footage of something that was caught last night in the backyard very crazy</div>
+
+          <div class="media-actions" role="group" aria-label="media actions">
+            <button class="action-btn" title="share">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 6l-4-4-4 4" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 2v14" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </button>
+
+            <button class="action-btn" title="pause/play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M10 8v8M14 8v8" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </button>
+
+            <button class="action-btn" title="delete">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M3 6h18" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M8 6v12a2 2 0 002 2h4a2 2 0 002-2V6" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 11v6M14 11v6" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- bottom navigation -->
+    <nav class="bottom-nav" role="navigation" aria-label="bottom navigation">
+      <div class="nav-item">
+        <button class="nav-btn active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="margin-right:6px;">
+            <path d="M12 3v12" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M5 12l7 7 7-7" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Download
+        </button>
+      </div>
+
+      <div class="nav-item">
+        <button class="nav-btn" style="background:transparent;color:var(--muted-white)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="margin-right:6px;">
+            <path d="M3 6h18M7 6v14a1 1 0 001 1h8a1 1 0 001-1V6" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Finished
+        </button>
+      </div>
+    </nav>
+
+  </div>
 </body>
 </html>
