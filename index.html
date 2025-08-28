@@ -241,7 +241,9 @@
             width: 39px;
             height: 39px;
             border-radius: 50%;
-            background: conic-gradient(#178F7F 45%, rgba(255, 255, 255, 0.3) 0);
+            background: conic-gradient(#178F7F 45%, transparent 0);
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), black 0);
+            mask: radial-gradient(farthest-side, transparent calc(100% - 3px), black 0);
             position: absolute;
         }
         
