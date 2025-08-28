@@ -196,6 +196,8 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            text-align: center;
         }
         
         .content-name {
@@ -287,10 +289,41 @@
             color: #FFFFFF;
             font-size: 14px;
             cursor: pointer;
+            position: relative;
+        }
+        
+        .nav-icon-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin-bottom: 2px;
+        }
+        
+        .nav-item.active .nav-icon-container::before {
+            content: "";
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background-color: #178F7F;
+            border-radius: 50%;
+            z-index: 0;
         }
         
         .nav-item.active {
-            color: #178F7F;
+            color: #FFFFFF;
+        }
+        
+        .nav-icon {
+            position: relative;
+            z-index: 1;
+            color: #FFFFFF;
+        }
+        
+        .nav-item.active .nav-icon {
+            color: #FFFFFF;
         }
     </style>
 </head>
@@ -363,11 +396,15 @@
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
         <div class="nav-item active">
-            <span class="material-icons-round">download</span>
+            <div class="nav-icon-container">
+                <span class="material-icons-round nav-icon">download</span>
+            </div>
             <span>Download</span>
         </div>
         <div class="nav-item">
-            <span class="material-icons-round">folder</span>
+            <div class="nav-icon-container">
+                <span class="material-icons-round nav-icon">folder</span>
+            </div>
             <span>Finished</span>
         </div>
     </div>
