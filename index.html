@@ -8,6 +8,16 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <!-- AdMob Content Mapping Tags -->
+    <meta name="admob-content-classification" content="Video Downloader">
+    <script type="application/json" id="admob-content-data">
+    {
+        "contentTitle": "GetVideo - Video Downloader",
+        "contentDescription": "Download videos from links with ease",
+        "contentCategory": ["Tools", "Video download", "Video player"],
+        "contentTopics": ["video downloader", "content saving", "video player"]
+    }
+    </script>
     <style>
         * {
             margin: 0;
@@ -332,7 +342,7 @@
 </head>
 <body>
     <!-- App Bar with Menu -->
-    <div class="app-bar">
+    <div class="app-bar" data-admob-content-role="header">
         <span class="material-icons-round menu-icon">notes</span>
         <div class="app-bar-title">GetVideo</div>
         <!-- Custom SVG Icon -->
@@ -345,19 +355,19 @@
     </div>
     
     <!-- Download Box -->
-    <div class="card download-box">
+    <div class="card download-box" data-admob-content-role="main">
         <div class="link-container">
             <span class="material-icons-round link-icon">link</span>
-            <input type="text" class="link-input" placeholder="Enter a Link" value="Enter a Video Link">
+            <input type="text" class="link-input" placeholder="Enter a Link" value="Enter a Video Link" data-admob-content-type="input-field">
             <div class="paste-btn">
                 <span class="material-icons-round" style="font-size: 19px;">content_copy</span>
             </div>
         </div>
-        <div class="download-btn">DOWNLOAD</div>
+        <div class="download-btn" data-admob-content-type="action-button">DOWNLOAD</div>
     </div>
     
     <!-- Remaining Downloads -->
-    <div class="card">
+    <div class="card" data-admob-content-role="status-info">
         <div class="remaining-container">
             <span class="material-icons-round" style="color: #FFFFFF;">download</span>
             <div class="remaining-text">Remaining downloads: 1</div>
@@ -367,12 +377,11 @@
         </div>
     </div>
     
-    <!-- Content Card -->
-    <div class="card">
+<!-- Content Card -->
+    <div class="card" data-admob-content-role="content-item">
         <div class="content-card">
             <div class="cover-container">
-                <!-- Updated image source to point to the thumbnail.jpeg file -->
-                <img src="images/thumbnail.jpeg" alt="Video thumbnail" class="cover-image">
+                <img src="images/thumbnail.jpeg" alt="Video thumbnail" class="cover-image" data-admob-content-type="media">
                 <span class="material-icons-round content-type">videocam</span>
                 
                 <div class="progress-container">
@@ -384,8 +393,8 @@
             </div>
             
             <div class="content-details">
-                <div class="content-name">Coach_ramzay</div>
-                <div class="content-caption">Footage of something that was caught last night in the backyard very crazy</div>
+                <div class="content-name" data-admob-content-type="title">Coach_ramzay</div>
+                <div class="content-caption" data-admob-content-type="description">Footage of something that was caught last night in the backyard very crazy</div>
                 
                 <div class="action-buttons">
                     <div class="action-btn">
@@ -403,7 +412,7 @@
     </div>
     
     <!-- Bottom Navigation -->
-    <div class="bottom-nav">
+    <div class="bottom-nav" data-admob-content-role="navigation">
         <div class="nav-item active">
             <div class="nav-icon-container">
                 <span class="material-icons-round nav-icon">download</span>
