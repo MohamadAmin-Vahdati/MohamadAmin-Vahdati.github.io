@@ -167,6 +167,7 @@
             position: relative;
             margin-right: 10px;
             flex-shrink: 0;
+            overflow: hidden;
         }
         
         .cover-image {
@@ -182,6 +183,13 @@
             right: 8px;
             color: #FFFFFF;
             font-size: 16px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .content-details {
@@ -212,6 +220,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
         }
         
         .progress-bg {
@@ -319,7 +329,8 @@
     <div class="card">
         <div class="content-card">
             <div class="cover-container">
-                <div class="cover-image" style="background-color: #333;"></div>
+                <!-- Updated image source to point to the thumbnail.jpeg file -->
+                <img src="images/thumbnail.jpeg" alt="Video thumbnail" class="cover-image">
                 <span class="material-icons-round content-type">videocam</span>
                 
                 <div class="progress-container">
